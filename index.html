@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online | N&D Styles</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TU_ID_ANALYTICS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TU_ID_ANALYTICS');  // Reemplaza con tu ID de GA4
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="assets/logo.jpg" alt="Logo Tienda">
+        </div>
+          <h1><i>Bienvenidos a N&D Styles</i></h1>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Carrito (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="products">
+            <div class="product">
+                <img src="assets/zapatos.jpg" alt="Producto 1">
+                <h3>Zapatos Deportivos</h3>
+                <p>$50.00</p>
+                <button class="add-to-cart" data-id="1">Añadir al Carrito</button>
+            </div>
+            <div class="product">
+                <img src="assets/camisetas.jpg" alt="Producto 2">
+                <h3>Camiseta de dama y caballero</h3>
+                <p>$25.00</p>
+                <button class="add-to-cart" data-id="2">Añadir al Carrito</button>
+            </div>
+            <div class="product">
+                <img src="assets/gorra.jpg" alt="Producto 3">
+                <h3>Gorras</h3>
+                <p>$15.00</p>
+                <button class="add-to-cart" data-id="3">Añadir al Carrito</button>
+            </div>
+            <div class="product">
+                <img src="assets/bolsos.jpg" alt="Producto 3">
+                <h3>Bolsos</h3>
+                <p>$30.00</p>
+                <button class="add-to-cart" data-id="3">Añadir al Carrito</button>
+            </div>
+            <div class="product">
+                 <img src="assets/logo.jpg" alt="Producto 3"><br>
+                 <br>
+                 <i><h3>GRACIAS</h3></i>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Tienda Online. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
