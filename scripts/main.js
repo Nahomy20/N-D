@@ -31,4 +31,4 @@ function sendGAEvent(productName) {
             item_name: productName
         }]
     });
-}
+ }
