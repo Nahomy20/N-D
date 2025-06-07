@@ -1,34 +1,59 @@
-// Carrito de compras
 let cart = [];
 
-// Añadir producto al carrito
+// Función para añadir al carrito
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
-        const productId = button.getAttribute('data-id');
-        const productName = button.parentElement.querySelector('h3').textContent;
-        const productPrice = button.parentElement.querySelector('p').textContent;
-        
-        cart.push({
-            id: productId,
-            name: productName,
-            price: productPrice
-        });
+        const product = {
+            id: button.getAttribute('data-id'),
+            name: button.parentElement.querySelector('h3').textContent,
+            price: parseFloat(button.parentElement.querySelector('p').textContent.replace('$', ''))
+        };
 
+        cart.push(product);
         updateCartCount();
-        alert(`${productName} añadido al carrito!`);
+        
+        // Evento GA4 para añadir al carrito (con datos REALES)
+        gtag('event', 'add_to_cart', {
+            currency: 'USD',
+            value: product.price,
+            items: [{
+                item_id: product.id,
+                item_name: product.name,
+                price: product.price,
+                quantity: 1
+            }]
+        });
+        
+        alert(`${product.name} añadido al carrito!`);
     });
 });
 
-// Actualizar contador del carrito
+// Función para finalizar compra (ejecutar esto al hacer clic en "Comprar")
+function completePurchase() {
+    if(cart.length === 0) return;
+    
+    const transactionId = 'T-' + Date.now(); // ID único
+    const totalValue = cart.reduce((sum, product) => sum + product.price, 0);
+    
+    // Evento GA4 de compra (con datos REALES)
+    gtag('event', 'purchase', {
+        transaction_id: transactionId,
+        value: totalValue,
+        currency: 'USD',
+        items: cart.map(product => ({
+            item_id: product.id,
+            item_name: product.name,
+            price: product.price,
+            quantity: 1
+        }))
+    });
+    
+    alert(`Compra realizada por $${totalValue}! ID: ${transactionId}`);
+    cart = [];
+    updateCartCount();
+}
+
+// Actualizar contador
 function updateCartCount() {
     document.getElementById('cart-count').textContent = cart.length;
 }
-
-// (Opcional) Enviar evento a Google Analytics cuando se añade al carrito
-function sendGAEvent(productName) {
-    gtag('event', 'add_to_cart', {
-        items: [{
-            item_name: productName
-        }]
-    });
- }
