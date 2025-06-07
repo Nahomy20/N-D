@@ -53,7 +53,7 @@ function completePurchase() {
     updateCartCount();
 }
 
-// Actualizar contador
+// Actualizar contar
 function updateCartCount() {
     document.getElementById('cart-count').textContent = cart.length;
 }
