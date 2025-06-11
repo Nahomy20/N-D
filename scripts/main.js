@@ -85,3 +85,28 @@ function completePurchase() {
     cart = [];
     updateCartCount();
 }
+// Enviar evento view_item_list al cargar productos
+        window.addEventListener('DOMContentLoaded', () => {
+            const productCards = document.querySelectorAll('.product');
+            const items = [];
+
+            productCards.forEach(product => {
+                const name = product.querySelector('h3').innerText;
+                const priceText = product.querySelector('p').innerText.replace('$', '');
+                const price = parseFloat(priceText);
+                const id = product.getAttribute('data-id');
+
+                items.push({
+                    item_id: id,
+                    item_name: name,
+                    price: price,
+                    quantity: 1
+                });
+            });
+
+            gtag('event', 'view_item_list', {
+                currency: 'USD',
+                item_list_name: 'Tienda N&D Styles',
+                items: items
+            });
+        });
