@@ -1,18 +1,31 @@
-let cart = [];
+// Función para extraer datos del producto
+function getProductData(productElement) {
+    return {
+        id: productElement.getAttribute('data-id'),
+        name: productElement.querySelector('h3').textContent,
+        price: parseFloat(productElement.querySelector('p').textContent.replace(/[^\d.]/g, ''))
+    };
+}
 
-// Función para añadir al carrito
+// Manejador del carrito
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
-        const product = {
-            id: button.getAttribute('data-id'),
-            name: button.parentElement.querySelector('h3').textContent,
-            price: parseFloat(button.parentElement.querySelector('p').textContent.replace('$', ''))
-        };
+        const productElement = button.closest('.product');
+        if (!productElement) return;
 
+        const product = getProductData(productElement);
+        
+        // Validación de precio
+        if (isNaN(product.price)) {
+            console.error('Precio inválido en:', productElement);
+            return;
+        }
+
+        // Añadir al carrito
         cart.push(product);
         updateCartCount();
         
-        // Evento GA4 para añadir al carrito (con datos REALES)
+        // Enviar a GA4
         gtag('event', 'add_to_cart', {
             currency: 'USD',
             value: product.price,
@@ -24,36 +37,35 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
             }]
         });
         
-        alert(`${product.name} añadido al carrito!`);
+        console.log('Producto añadido:', product); // Depuración
+        alert(`✅ ${product.name} añadido al carrito`);
     });
 });
 
-// Función para finalizar compra (ejecutar esto al hacer clic en "Comprar")
+// Función de compra (mejorada)
 function completePurchase() {
-    if(cart.length === 0) return;
-    
-    const transactionId = 'T-' + Date.now(); // ID único
-    const totalValue = cart.reduce((sum, product) => sum + product.price, 0);
-    
-    // Evento GA4 de compra (con datos REALES)
+    if (cart.length === 0) {
+        alert('🛒 Tu carrito está vacío');
+        return;
+    }
+
+    const transactionId = 'T-' + Math.floor(Date.now() / 1000);
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+    // Enviar evento de compra
     gtag('event', 'purchase', {
         transaction_id: transactionId,
-        value: totalValue,
+        value: total,
         currency: 'USD',
-        items: cart.map(product => ({
-            item_id: product.id,
-            item_name: product.name,
-            price: product.price,
+        items: cart.map(item => ({
+            item_id: item.id,
+            item_name: item.name,
+            price: item.price,
             quantity: 1
         }))
     });
-    
-    alert(`Compra realizada por $${totalValue}! ID: ${transactionId}`);
+
+    alert(`🎉 Compra exitosa! Total: $${total.toFixed(2)}`);
     cart = [];
     updateCartCount();
-}
-
-// Actualizar contar
-function updateCartCount() {
-    document.getElementById('cart-count').textContent = cart.length;
 }

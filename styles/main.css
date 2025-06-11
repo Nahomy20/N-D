@@ -76,3 +76,15 @@ footer {
     bottom: 0;
     width: 100%;
 }
+.thank-you-message {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.thank-you-message img {
+    max-width: 100px;
+    margin-bottom: 1rem;
+}
