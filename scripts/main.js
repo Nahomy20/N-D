@@ -38,6 +38,7 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
         updateCartCount();
 
         // Evento GA4: add_to_cart
+        window.onload = function() {
         gtag('event', 'add_to_cart', {
             currency: 'USD',
             value: product.price,
@@ -48,6 +49,7 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
                 quantity: 1
             }]
         });
+        },
 
         console.log('✅ Producto añadido al carrito:', product);
         alert(`✅ ${product.name} añadido al carrito`);
