@@ -1,31 +1,43 @@
+// Inicialización del carrito
+let cart = [];
+
 // Función para extraer datos del producto
 function getProductData(productElement) {
     return {
         id: productElement.getAttribute('data-id'),
-        name: productElement.querySelector('h3').textContent,
-        price: parseFloat(productElement.querySelector('p').textContent.replace(/[^\d.]/g, ''))
+        name: productElement.querySelector('h3')?.textContent?.trim() || 'Producto sin nombre',
+        price: parseFloat(productElement.querySelector('p')?.textContent?.replace(/[^\d.]/g, '') || 0)
     };
 }
 
-// Manejador del carrito
+// Actualiza el contador del carrito en el DOM
+function updateCartCount() {
+    const countElement = document.getElementById('cart-count');
+    if (countElement) {
+        countElement.textContent = cart.length;
+    }
+}
+
+// Manejador para añadir al carrito
 document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', () => {
         const productElement = button.closest('.product');
         if (!productElement) return;
 
         const product = getProductData(productElement);
-        
-        // Validación de precio
-        if (isNaN(product.price)) {
-            console.error('Precio inválido en:', productElement);
+
+        // Validación básica
+        if (!product.id || isNaN(product.price)) {
+            console.error('❌ Producto inválido:', product);
+            alert('Hubo un error al agregar el producto al carrito.');
             return;
         }
 
-        // Añadir al carrito
+        // Añadir producto al carrito
         cart.push(product);
         updateCartCount();
-        
-        // Enviar a GA4
+
+        // Evento GA4: add_to_cart
         gtag('event', 'add_to_cart', {
             currency: 'USD',
             value: product.price,
@@ -36,13 +48,13 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
                 quantity: 1
             }]
         });
-        
-        console.log('Producto añadido:', product); // Depuración
+
+        console.log('✅ Producto añadido al carrito:', product);
         alert(`✅ ${product.name} añadido al carrito`);
     });
 });
 
-// Función de compra (mejorada)
+// Función para finalizar compra
 function completePurchase() {
     if (cart.length === 0) {
         alert('🛒 Tu carrito está vacío');
@@ -52,7 +64,7 @@ function completePurchase() {
     const transactionId = 'T-' + Math.floor(Date.now() / 1000);
     const total = cart.reduce((sum, item) => sum + item.price, 0);
 
-    // Enviar evento de compra
+    // Evento GA4: purchase
     gtag('event', 'purchase', {
         transaction_id: transactionId,
         value: total,
@@ -65,7 +77,11 @@ function completePurchase() {
         }))
     });
 
+    console.log('🎉 Compra realizada:', { transactionId, total, items: cart });
+
     alert(`🎉 Compra exitosa! Total: $${total.toFixed(2)}`);
+
+    // Reiniciar carrito
     cart = [];
     updateCartCount();
 }
