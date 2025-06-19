@@ -10,7 +10,7 @@ body {
 header {
     background: #1a0a93;
     color: white;
-    padding: 1rem;
+    padding: 3px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -71,7 +71,7 @@ footer {
     background: #0a637b;
     color: white;
     text-align: center;
-    padding: 1rem;
+    padding: 1px;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -87,4 +87,73 @@ footer {
 .thank-you-message img {
     max-width: 100px;
     margin-bottom: 1rem;
+}
+/* Estilos para el formulario de registro */
+.user-registration {
+    background: white;
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    text-align: left;
+    font-family: 'Arial', sans-serif;
+}
+
+.user-registration h2 {
+    text-align: center;
+    color: #1a0a93;
+    margin-bottom: 1rem;
+}
+
+.user-registration label {
+    font-weight: bold;
+    display: block;
+    margin-top: 1rem;
+    color: #333;
+}
+
+.user-registration input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.user-registration button[type="submit"] {
+    background-color: #6200ee;
+    color: white;
+    border: none;
+    padding: 0.7rem 1rem;
+    margin-top: 1.5rem;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.user-registration button[type="submit"]:hover {
+    background-color: #3700b3;
+}
+/* Estilo para el botón Finalizar Compra */
+button.finalize-purchase {
+    background-color: #0a637b;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    margin-top: 20px;
+}
+
+button.finalize-purchase:hover {
+    background-color: #084c60;
+    transform: scale(1.03);
 }

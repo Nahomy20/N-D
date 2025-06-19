@@ -55,16 +55,29 @@
                 <p>$30.00</p>
                 <button class="add-to-cart">Añadir al Carrito</button>
             </div>
-            <div class="thank-you-message">
+        <div style="text-align: center; margin-top: 20px;">
+    <button class="finalize-purchase" onclick="completePurchase()">Finalizar Compra</button>
+</div>
+        </section>
+        <section class="user-registration" style="margin: 40px auto; max-width: 500px; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+    <h2>Regístrate</h2>
+    <form id="register-form">
+        <label for="name">Nombre:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="phone">Teléfono:</label><br>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9]{8,15}"><br><br>
+
+        <label for="email">Correo electrónico:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <button type="submit">Registrarse</button>
+    </form>  <div class="thank-you-message">
     <img src="assets/logo.jpg" alt="Gracias">
     <h3><i>GRACIAS POR SU VISITA</i></h3>
 </div>
-        </section>
+</section>
     </main>
-    <div style="text-align:center; margin-top: 20px;">
-    <button onclick="completePurchase()">Finalizar Compra</button>
-</div>
-
 
     <footer>
         <p>&copy; 2025 Tienda Online. Todos los derechos reservados.</p>

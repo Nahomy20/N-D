@@ -111,4 +111,24 @@ function completePurchase() {
                 item_list_name: 'Tienda N&D Styles',
                 items: items
             });
+            // Manejo del formulario de registro
+document.getElementById('register-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (name && phone && email) {
+        gtag('event', 'sign_up', {
+            method: 'Formulario web',
+            name: name,
+            phone: phone,
+            email: email
+        });
+
+        alert('¡Gracias por registrarte, ' + name + '!');
+        this.reset();
+    }
+});
         });
